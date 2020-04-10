@@ -87,13 +87,17 @@ function displayPizzaList(store){
                      '<div class="card-body">'+
                         '<p class="card-text">'+ pizza.description+'</p>'+
                      '</div>'+ sizeInfo +
-                     '<button type="button" class="btn btn-primary btn-sm">'+ 'Add To Cart'+'</button>'+
+                     '<button type="button"  id ="cart_button" class="btn btn-primary btn-sm">'+ 'Add To Cart'+'</button>'+
                   '</div>'+
                   '</div>'
 
    });
    inputList.append(htmlForInfo);
  };
+
+ function showPrice(){
+
+ }
 
 //  function attachPizzaSizeListeners() {
 //    $("ul#contacts").on("click", "li", function() {
@@ -108,8 +112,10 @@ function displayPizzaList(store){
 
 
  function attachPizzaSizeListeners() {
-   $("ul#contacts").on("click", "li", function() {
-     showContact(this.id);
+   $(".container").on("click", "button", function() {
+      var price =  $("#small").val()
+
+     showPrice(this.id);
    });
    $("#buttons").on("click", ".deleteButton", function() {
      addressBook.deleteContact(this.id);
