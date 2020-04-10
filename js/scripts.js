@@ -10,7 +10,8 @@ function PizzaSize(size, sizePrice){
    this.sizePrice = sizePrice;
 }
  
-function Pizza(name, description, imgSrc){
+function Pizza(name, description, imgSrc, id){
+   this.pizzaId =id;
    this.name = name;
    this.description = description;
    this.imgSrc = imgSrc;
@@ -40,8 +41,8 @@ Store.prototype.addPizza = function(pizza){
 
 Store.prototype.init = function(){
 
-   var pizza1 = new Pizza("Cheese Pizza", "Cheese and base Tomato Sauce","img/pizza_2.jpg");
-   var pizza2 = new Pizza("Jhon Candy", "Pepperoni,mushrooms, black olives, tomato sauce","img/pizza_1.jpg");
+   var pizza1 = new Pizza("Cheese Pizza", "Cheese and base Tomato Sauce","img/pizza_2.jpg","p1");
+   var pizza2 = new Pizza("Jhon Candy", "Pepperoni,mushrooms, black olives, tomato sauce","img/pizza_1.jpg","p2");
    var pizzaSize1 = new PizzaSize("Small", "$7.00");
    var pizzaSize2 = new PizzaSize("Medium", "$10.00");
    var pizzaSize3 = new PizzaSize("Large", "$14.00");
@@ -71,7 +72,7 @@ function displayPizzaList(store){
           sizeInfo += '<div class="input-group">'+
          '<div class="input-group-prepend">'+
             '<div class="input-group-text">' +
-            '<input type="radio" id="small" name="size" aria-label="Radio button for following text input">'
+            '<input type="radio"  id="'+pizza.id+'" name="'+pizza.id+'" aria-label="Radio button for following text input">'
              + pizzaSize.size + ' ' + pizzaSize.sizePrice + '<br>'+
             '</div>'+
          '</div>'+
@@ -87,7 +88,7 @@ function displayPizzaList(store){
                      '<div class="card-body">'+
                         '<p class="card-text">'+ pizza.description+'</p>'+
                      '</div>'+ sizeInfo +
-                     '<button type="button"  id ="cart_button" class="btn btn-primary btn-sm">'+ 'Add To Cart'+'</button>'+
+                     '<button type="button" id="'+pizza.pizzaId+'"  id="cart_button" class="btn btn-primary btn-sm">'+ 'Add To Cart'+'</button>'+
                   '</div>'+
                   '</div>'
 
@@ -95,7 +96,19 @@ function displayPizzaList(store){
    inputList.append(htmlForInfo);
  };
 
- function showPrice(){
+function displayContactDetails(addressBookToDisplay) {
+   var contactsList = $("ul#contacts");
+   var htmlForContactInfo = "";
+   addressBookToDisplay.contacts.forEach(function(contact) {
+     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+   });
+   contactsList.html(htmlForContactInfo);
+ };
+
+ function showPrice(price){
+   var inputPrize = $("p#info");
+   var htmlInfo = price;
+   inputPrize.html(htmlInfo);
 
  }
 
@@ -113,9 +126,10 @@ function displayPizzaList(store){
 
  function attachPizzaSizeListeners() {
    $(".container").on("click", "button", function() {
-      var price =  $("#small").val()
-
-     showPrice(this.id);
+      alert(this.id)
+      var price =  $("#"+this.id).val()
+      alert("price is " + price);
+      showPrice(price);
    });
    $("#buttons").on("click", ".deleteButton", function() {
      addressBook.deleteContact(this.id);
