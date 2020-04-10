@@ -17,6 +17,10 @@ function Pizza(name, description){
    this.sizeList = [];
 }
 
+function Store(){
+   this.pizzaList = [];
+}
+
 
 Pizza.prototype.addTopping = function(topping){
   this.toppingList.push(topping);
@@ -24,6 +28,10 @@ Pizza.prototype.addTopping = function(topping){
 
 Pizza.prototype.addSize = function(pizzaSize1){
    this.sizeList.push(pizzaSize1);
+}
+
+Store.prototype.showPizza = function(pizza){
+   this.pizzaList.push(pizza)
 }
 
 var pizza1 = new Pizza("Cheese Pizza", "cheese and base Tomato Sauce");
@@ -34,6 +42,11 @@ var pizzaSize3 = new PizzaSize("Large", 14);
 pizza1.addSize(pizzaSize1);
 pizza1.addSize(pizzaSize2);
 pizza1.addSize(pizzaSize3);
+
+var store = new Store();
+store.showPizza(pizza1);
+
+
 
 
 
