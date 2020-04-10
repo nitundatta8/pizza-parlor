@@ -40,38 +40,54 @@ Store.prototype.addPizza = function(pizza){
 
 Store.prototype.init = function(){
 
-   var pizza1 = new Pizza("Cheese Pizza", "cheese and base Tomato Sauce","img/pizza_1.jpg");
-   var pizzaSize1 = new PizzaSize("Small", 7);
-   var pizzaSize2 = new PizzaSize("Medium", 10);
-   var pizzaSize3 = new PizzaSize("Large", 14);
+   var pizza1 = new Pizza("Cheese Pizza", "Cheese and base Tomato Sauce","img/pizza_2.jpg");
+   var pizza2 = new Pizza("Jhon Candy", "Pepperoni,mushrooms, black olives, tomato sauce","img/pizza_1.jpg");
+   var pizzaSize1 = new PizzaSize("Small", "$7.00");
+   var pizzaSize2 = new PizzaSize("Medium", "$10.00");
+   var pizzaSize3 = new PizzaSize("Large", "$14.00");
+
+   var pizzaSize4 = new PizzaSize("Small", "$8.00");
+   var pizzaSize5 = new PizzaSize("Medium", "$12.00");
+   var pizzaSize6 = new PizzaSize("Large", "$15.00");
    pizza1.addSize(pizzaSize1);
    pizza1.addSize(pizzaSize2);
    pizza1.addSize(pizzaSize3);
+   pizza2.addSize(pizzaSize4);
+   pizza2.addSize(pizzaSize5);
+   pizza2.addSize(pizzaSize6);
+   
    this.addPizza(pizza1);
+   this.addPizza(pizza2);
 }
 
-// function displayContactDetails(addressBookToDisplay) {
-//    var contactsList = $("ul#contacts");
-//    var htmlForContactInfo = "";
-//    addressBookToDisplay.contacts.forEach(function(contact) {
-//      htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-//    });
-//    contactsList.html(htmlForContactInfo);
-//  };
 
- function displayPizzaList(store){
+function displayPizzaList(store){
     
    var inputList = $(".container");
    var htmlForInfo = "";
    store.pizzaList.forEach(function(pizza){
-      console.log(pizza.description)
+      var sizeInfo ="";
+      pizza.sizeList.forEach(function(pizzaSize){
+          sizeInfo += '<div class="input-group">'+
+         '<div class="input-group-prepend">'+
+            '<div class="input-group-text">' +
+            '<input type="radio" id="small" name="size" aria-label="Radio button for following text input">'
+             + pizzaSize.size + ' ' + pizzaSize.sizePrice + '<br>'+
+            '</div>'+
+         '</div>'+
+       '</div>' 
+      });
+      
+
+
     htmlForInfo +='<div class="d-flex flex-wrap align-content-center bg-light"> '+
                   '<div class="p-2 border">'+ pizza.name +
                   '<div class="card" style="width: 18rem;">' +
                      '<img class="card-img-top" src="'+pizza.imgSrc +'" alt="Card image cap">'+
                      '<div class="card-body">'+
                         '<p class="card-text">'+ pizza.description+'</p>'+
-                     '</div>'+
+                     '</div>'+ sizeInfo +
+                     '<button type="button" class="btn btn-primary btn-sm">'+ 'Add To Cart'+'</button>'+
                   '</div>'+
                   '</div>'
 
@@ -79,15 +95,36 @@ Store.prototype.init = function(){
    inputList.append(htmlForInfo);
  };
 
+//  function attachPizzaSizeListeners() {
+//    $("ul#contacts").on("click", "li", function() {
+//      showContact(this.id);
+//    });
+//    $("#buttons").on("click", ".deleteButton", function() {
+//      addressBook.deleteContact(this.id);
+//      $("#show-contact").hide();
+//      displayContactDetails(addressBook);
+//    });
+//  };
 
+
+ function attachPizzaSizeListeners() {
+   $("ul#contacts").on("click", "li", function() {
+     showContact(this.id);
+   });
+   $("#buttons").on("click", ".deleteButton", function() {
+     addressBook.deleteContact(this.id);
+     $("#show-contact").hide();
+     displayContactDetails(addressBook);
+   });
+ };
 
 
 // user interface logic
 $(document).ready(function(){
-   
+   attachPizzaSizeListeners();
    var store = new Store();
    store.init();
-   console.log(store.pizzaList);
+   
    displayPizzaList(store);
 
 
