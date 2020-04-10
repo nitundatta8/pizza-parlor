@@ -2,7 +2,7 @@
 
 #### _Practice with constucting object and prototype_
 
-#### Nitun Datta - April 10, 2020_
+#### Nitun Datta - April 10, 2020
 
 ## Description
 
@@ -14,12 +14,21 @@
 * Navigate to index.html file.
 * Right click and open in the browser of your choice.
 
-* Alternatively, open the webpage at https://github.com/nitundatta8/Places-I-have-Been.git
+* Alternatively, open the webpage at https://github.com/nitundatta8/pizza-parlor
 
 
 ## specs
-1. Allow user to choose a type of pizza with customs option
-2. Allow user to choose a different size of pizza.
+1. Allow user to choose a type of pizza with a custom option.
+2. Allow user to choose a different size of pizza.Size will be 9"/ 12"/15"
+3. Pizza price will depend on topping and size. 
+4. Custom pizza price will be different from regular pizza price.Price will increase when adding more topping [cheese, pepperoni, artichoke, anchovy, etc]. 
+5. Input : Regular Cheese pizza 9"
+   Output : Price:$7.00
+6. Input : Cheese pizza including two topping  12"
+   Output : Price:$10.00 
+7. Input : Cheese pizza including two topping with two custom options 12"
+   Output : Price:$11.00  
+   
 
 
 
