@@ -64,7 +64,7 @@ Store.prototype.init = function(){
 
 function displayPizzaList(store){
     
-   var inputList = $(".container");
+   var inputList = $(".pizzList");
    var htmlForInfo = "";
    store.pizzaList.forEach(function(pizza){
       var sizeInfo ="";
@@ -72,7 +72,7 @@ function displayPizzaList(store){
           sizeInfo += '<div class="input-group">'+
          '<div class="input-group-prepend">'+
             '<div class="input-group-text">' +
-            '<input type="radio"  id="'+pizza.id+'" name="'+pizza.id+'" aria-label="Radio button for following text input">'
+            '<input type="radio"  value="'+pizzaSize.sizePrice+'"  id="'+pizza.pizzaId+'" name="'+pizza.pizzaId+'" aria-label="Radio button for following text input">'
              + pizzaSize.size + ' ' + pizzaSize.sizePrice + '<br>'+
             '</div>'+
          '</div>'+
@@ -96,21 +96,14 @@ function displayPizzaList(store){
    inputList.append(htmlForInfo);
  };
 
-function displayContactDetails(addressBookToDisplay) {
-   var contactsList = $("ul#contacts");
-   var htmlForContactInfo = "";
-   addressBookToDisplay.contacts.forEach(function(contact) {
-     htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
-   });
-   contactsList.html(htmlForContactInfo);
- };
 
- function showPrice(price){
-   var inputPrize = $("p#info");
-   var htmlInfo = price;
-   inputPrize.html(htmlInfo);
 
- }
+//  function showPrice(price){
+//    var inputPrize = $("p#info");
+//    var htmlInfo = price;
+//    inputPrize.html(htmlInfo);
+
+//  }
 
 //  function attachPizzaSizeListeners() {
 //    $("ul#contacts").on("click", "li", function() {
@@ -125,17 +118,16 @@ function displayContactDetails(addressBookToDisplay) {
 
 
  function attachPizzaSizeListeners() {
-   $(".container").on("click", "button", function() {
-      alert(this.id)
-      var price =  $("#"+this.id).val()
-      alert("price is " + price);
-      showPrice(price);
+   $(".pizzList").on("click", "button", function() {
+      var price =  $("#"+this.id+":checked").val();
+      
+      //<p id="pizzaName"></p>
+     // <p id="pizzaSize"></p>
+     // <p id="pizzaPrice"></p>
+
+      $("#pizzaPrice").text("Pizza Price " +price)
    });
-   $("#buttons").on("click", ".deleteButton", function() {
-     addressBook.deleteContact(this.id);
-     $("#show-contact").hide();
-     displayContactDetails(addressBook);
-   });
+  
  };
 
 
