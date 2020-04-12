@@ -129,7 +129,11 @@
    function showItemList(cart){
      
       cart.saleItemList.forEach(function(saleItem){
-      //   Store.findPizza(saleItem.pizza)
+         $("#pizzaName").text("Pizza Name: " + saleItem.pizza.name);
+         $("#toatlPrice").text("Total Price: "+ saleItem.totalPrice);
+         $("#pizzaQuantity").text("Quantity: " + saleItem.quantity);
+         $("#cart").show();
+         console.log(saleItem.pizza.pizzaId+ "   =======")
       });
    }
 
@@ -146,26 +150,29 @@
          $("#pizzaPrice").text("Price: " +sizePrice.split("-")[1]);
 
          var itemPrice= parseInt(sizePrice.split("-")[1]);
-         var quantity = $("#quantity").val();
+         var quantity = parseInt($("#quantity").val());
          $("#quantity").val('');
-         var totalPrice=0;
+         
          var rs =  $("input[name='topping']:checked").each(function () {
             itemPrice +=parseInt($(this).val().split("-")[1]);
          });
+         console.log(quantity)
          
-          totalPrice += itemPrice *  quantity;
-           var storePizza = store.findPizza(this.id);
-           console.log(" storePizza "+ storePizza.pizzaId)
+          var totalPrice = (itemPrice *  quantity);
+          
+          var storePizza = store.findPizza(this.id);
+          
          //saleItem
          saleItem = new SaleItem(storePizza,quantity,totalPrice);
+         console.log("saleItem " +saleItem.totalPrice)
          //cart
          var cart = new Cart();
          cart.addCart(saleItem);
-         
+         // show pizza to cart
          showItemList(cart);
 
-          $("#toatlPrice").text("Total Price: "+totalPrice);
-         $("#cart").show();
+         //  $("#toatlPrice").text("Total Price: "+totalPrice);
+         // $("#cart").show();
       });
       $(".pizzList").on("click", "a", function() {
          $("#custom").show();
