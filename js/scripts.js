@@ -34,6 +34,7 @@
       this.pizzaList = [];
    }
    var store;
+   var cart;
    Store.prototype.addPizza = function(pizza){
       this.pizzaList.push(pizza);
    }
@@ -90,10 +91,10 @@
 
    
    // display size and price
-   function displayPizzaList(store){
+   function displayPizzaInStore(store){
     
       var inputList = $(".pizzList");
-      var htmlForInfo = "";
+      var htmlInfo = "";
       store.pizzaList.forEach(function(pizza){
          var sizeInfo ="";
          pizza.sizeList.forEach(function(pizzaSize){
@@ -106,9 +107,9 @@
             '</div>'+
           '</div>' 
          });
-         var value = "Quantity"+'<input type="text" id="quantity" style="width:50px">'
+         var value = "Quantity"+'<input type="text" id="qt-'+pizza.pizzaId+ '" style="width:50px">'
 
-      htmlForInfo +='<div class="d-flex flex-wrap align-content-center bg-light"> '+
+      htmlInfo +='<div class="d-flex flex-wrap align-content-center bg-light"> '+
                      '<div class="p-2 border">'+ pizza.name +
                      '<div class="card" style="width: 18rem;">' +
                         '<img class="card-img-top" src="'+pizza.imgSrc +'" alt="Card image cap">'+
@@ -122,20 +123,32 @@
                      '</div>'
 
       });
-      inputList.append(htmlForInfo);
+      inputList.append(htmlInfo);
    };
 
    //show saleItemList from cart
-   function showItemList(cart){
+   function showItemList(cartDetails){
+     var inputTag = $("#intro");
+     var htmlTagInfo = "";
      
-      cart.saleItemList.forEach(function(saleItem){
-         $("#pizzaName").text("Pizza Name: " + saleItem.pizza.name);
-         $("#toatlPrice").text("Total Price: "+ saleItem.totalPrice);
-         $("#pizzaQuantity").text("Quantity: " + saleItem.quantity);
-         $("#cart").show();
-         console.log(saleItem.pizza.pizzaId+ "   =======")
-      });
-   }
+
+     cartDetails.saleItemList.forEach(function(saleItem){
+         htmlTagInfo += '<li class="list-group-item ">'+
+            '<p id="pizzaName" class="list-group-item-text">'+"Pizza Name: "+saleItem.pizza.name +'</p>'+
+            // '<p id="pizzaSize" class="list-group-item-text">'++'</p>'+
+            '<p id="pizzaQuantity" class="list-group-item-text">'+"Quantity: "+saleItem.quantity+'</p>'+
+            
+            '<p id="toatlPrice" class="list-group-item-text">'+"Unit Price: "+saleItem.totalPrice+'</p>'+
+            '<p id="pizzaPrice" class="list-group-item-text">'+"Price: "+ 
+                  (saleItem.quantity * saleItem.totalPrice)+'</p>'+
+            '</li>'+
+        '</ul>'
+        });
+      
+      console.log(htmlTagInfo)
+      inputTag.html(htmlTagInfo);
+     
+   };
 
 
 
@@ -144,35 +157,36 @@
       $(".pizzList").on("click", "button", function() {
         
          var sizePrice =  $("#"+this.id+":checked").val();
-         $("#"+this.id+":checked").val('');
+         $("input:checked").removeAttr("checked");
         
          $("#pizzaSize").text("Size: " +sizePrice.split("-")[0]);
          $("#pizzaPrice").text("Price: " +sizePrice.split("-")[1]);
 
          var itemPrice= parseInt(sizePrice.split("-")[1]);
-         var quantity = parseInt($("#quantity").val());
-         $("#quantity").val('');
+         var quantity = parseInt($("#qt-" + this.id).val());
+         $("#qt-" + this.id).val('');
          
          var rs =  $("input[name='topping']:checked").each(function () {
             itemPrice +=parseInt($(this).val().split("-")[1]);
          });
          console.log(quantity)
          
-          var totalPrice = (itemPrice *  quantity);
+          
           
           var storePizza = store.findPizza(this.id);
           
          //saleItem
-         saleItem = new SaleItem(storePizza,quantity,totalPrice);
+         saleItem = new SaleItem(storePizza,quantity,itemPrice);
          console.log("saleItem " +saleItem.totalPrice)
          //cart
-         var cart = new Cart();
+         
          cart.addCart(saleItem);
          // show pizza to cart
+         
          showItemList(cart);
 
-         //  $("#toatlPrice").text("Total Price: "+totalPrice);
-         // $("#cart").show();
+           //$("#toatlPrice").text("Total Price: "+totalPrice);
+          $("#cart").show();
       });
       $(".pizzList").on("click", "a", function() {
          $("#custom").show();
@@ -188,8 +202,10 @@
        store = new Store();
       store.init();
       
-      displayPizzaList(store);
-
+      displayPizzaInStore(store);
+      
+       cart = new Cart();
+       
 
       $("#inputForm").submit(function(event){
          event.preventDefault();
