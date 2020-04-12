@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- <link href="css/bootstrap.css" rel="stylesheet" type="text/css"> -->
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/jquery-3.4.1.js"></script>
     <script src="js/scripts.js"></script>
@@ -16,17 +17,69 @@
       </nav>
       <!-- As a heading -->
       
-      
     </div>
-    <div id="cart" class="container">
-        <div>
+    <!-- <div id="cart" class="container">
+        <div >
           <h3>Cart:</h3>
           <p id="pizzaName"></p>
           <p id="pizzaSize"></p>
           <p id="pizzaPrice"></p>
+          <p id="toatlPrice"></p>
 
         </div>
      
+    </div> -->
+
+    <div id="custom" class="container">
+      <p>Choose your topping:</p>
+
+      <div>
+        <input type="checkbox" name="topping" value="alfredo sauce-2">
+        <label for="alfredo sauce">alfredo sauce-$2</label>
+      </div>
+      <div>
+        <input type="checkbox"  name="topping" value="Chicken-2">
+        <label for="chicken">Chicken-$2</label>
+      </div>
+      <div>
+        <input type="checkbox"  name="topping" value="Italian Sausage-1">
+        <label for="italian sausage">Italian Sausage-$1</label>
+      </div>
+
+      <div>
+        <input type="checkbox" id="parmesan" name="topping" value="parmesan-2">
+        <label for="parmesan">parmesan-$2</label>
+      </div>
     </div>
+    <!-- test cart -->
+    
+    <div id="cart" class="container">
+      <div class="card" style="width: 50rem;">
+        <div class="card-header list-group-item-info">
+          Cart
+        </div>
+        <ul  style="width: 48rem; margin: 10px;">
+          <li class="list-group-item ">
+            
+            
+            <p id="pizzaName" class="list-group-item-text"></p>
+            <p id="pizzaSize" class="list-group-item-text"></p>
+            <p id="pizzaPrice" class="list-group-item-text"></p>
+            <p id="toatlPrice" class="list-group-item-text"></p>
+            
+
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+
+    <!-- test -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    
+  </div>
+
   </body>
 </html>

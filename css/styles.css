@@ -1,0 +1,17 @@
+/* #cart{
+  display: none;
+  border-radius: 25px;
+  background: rgb(240, 241, 239);
+  margin-top: auto;
+  padding: 20px;
+  width: 300px;
+  height: 150px;
+
+} */
+#cart{
+  display: none;
+}
+
+#custom{
+  display: none;
+}
