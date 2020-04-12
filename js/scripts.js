@@ -130,23 +130,29 @@
    function showItemList(cartDetails){
      var inputTag = $("#intro");
      var htmlTagInfo = "";
-     
+     var total =0;
+     var balance =0;
 
      cartDetails.saleItemList.forEach(function(saleItem){
+      balance =(saleItem.quantity * saleItem.totalPrice);
+      total += balance;
          htmlTagInfo += '<li class="list-group-item ">'+
             '<p id="pizzaName" class="list-group-item-text">'+"Pizza Name: "+saleItem.pizza.name +'</p>'+
             // '<p id="pizzaSize" class="list-group-item-text">'++'</p>'+
             '<p id="pizzaQuantity" class="list-group-item-text">'+"Quantity: "+saleItem.quantity+'</p>'+
             
-            '<p id="toatlPrice" class="list-group-item-text">'+"Unit Price: "+saleItem.totalPrice+'</p>'+
-            '<p id="pizzaPrice" class="list-group-item-text">'+"Price: "+ 
-                  (saleItem.quantity * saleItem.totalPrice)+'</p>'+
+            '<p id="toatlPrice" class="list-group-item-text">'+"Unit Price: "+"$"+saleItem.totalPrice+".00"+'</p>'+
+            '<p id="pizzaPrice" class="list-group-item-text">'+"Price: "+"$"+ 
+              balance+".00" +'</p>'+
             '</li>'+
         '</ul>'
         });
       
-      console.log(htmlTagInfo)
       inputTag.html(htmlTagInfo);
+      var output = $("#result");
+      output.text(total);
+      console.log("total  " + total)
+       return total;
      
    };
 
@@ -183,8 +189,9 @@
          cart.addCart(saleItem);
          // show pizza to cart
          
-         showItemList(cart);
-
+        var rs = showItemList(cart);
+        console.log(rs+ "  rs")
+         $("#result").text("Total Balance: "+"$"+rs +".00");
            //$("#toatlPrice").text("Total Price: "+totalPrice);
           $("#cart").show();
       });

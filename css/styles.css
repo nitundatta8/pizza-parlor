@@ -15,3 +15,7 @@
 #custom{
   display: none;
 }
+#result{
+  text-align: center;
+  font-size: 20px;
+}
