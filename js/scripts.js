@@ -44,22 +44,24 @@
 
       var pizza1 = new Pizza("Plain Pizza", "Mozzarella, provolone, tomato sauce","img/pizza_2.jpg","p1");
       var pizza2 = new Pizza("Jhon Candy", "Pepperoni,mushrooms, black olives, tomato sauce","img/pizza_1.jpg","p2");
+      var pizza3 = new Pizza("Veggie Thai" ,"Broccoli, red onions, green peppers, pickled carrot,cilantro,","img/pizza_3.jpg","p3")
       var pizzaSize1 = new PizzaSize("Small", "7.00");
       var pizzaSize2 = new PizzaSize("Medium", "10.00");
       var pizzaSize3 = new PizzaSize("Large", "14.00");
 
-      var pizzaSize4 = new PizzaSize("Small", "8.00");
-      var pizzaSize5 = new PizzaSize("Medium", "12.00");
-      var pizzaSize6 = new PizzaSize("Large", "15.00");
       pizza1.addSize(pizzaSize1);
       pizza1.addSize(pizzaSize2);
       pizza1.addSize(pizzaSize3);
-      pizza2.addSize(pizzaSize4);
-      pizza2.addSize(pizzaSize5);
-      pizza2.addSize(pizzaSize6);
+      pizza2.addSize(pizzaSize1);
+      pizza2.addSize(pizzaSize2);
+      pizza2.addSize(pizzaSize3);
+      pizza3.addSize(pizzaSize1);
+      pizza3.addSize(pizzaSize2);
+      pizza3.addSize(pizzaSize3);
       
       this.addPizza(pizza1);
       this.addPizza(pizza2);
+      this.addPizza(pizza3);
    }
 
    Store.prototype.findPizza = function(id){
@@ -127,7 +129,7 @@
    };
 
    //show saleItemList from cart
-   function showItemList(cartDetails){
+   function showItemList(cartDetails,pizzaSize){
      var inputTag = $("#intro");
      var htmlTagInfo = "";
      var total =0;
@@ -138,7 +140,7 @@
       total += balance;
          htmlTagInfo += '<li class="list-group-item ">'+
             '<p id="pizzaName" class="list-group-item-text">'+"Pizza Name: "+saleItem.pizza.name +'</p>'+
-            // '<p id="pizzaSize" class="list-group-item-text">'++'</p>'+
+             '<p id="pizzaSize" class="list-group-item-text">'+"Size: " +pizzaSize +'</p>'+
             '<p id="pizzaQuantity" class="list-group-item-text">'+"Quantity: "+saleItem.quantity+'</p>'+
             
             '<p id="toatlPrice" class="list-group-item-text">'+"Unit Price: "+"$"+saleItem.totalPrice+".00"+'</p>'+
@@ -161,25 +163,24 @@
 
    function attachPizzaSizeListeners() {
       $(".pizzList").on("click", "button", function() {
-        
+         $("#custom").hide();
          var sizePrice =  $("#"+this.id+":checked").val();
-         $("input:checked").removeAttr("checked");
+         $("#"+this.id+":checked").prop("checked",false);
+         var pizzaSize = sizePrice.split("-")[0];
         
-         $("#pizzaSize").text("Size: " +sizePrice.split("-")[0]);
-         $("#pizzaPrice").text("Price: " +sizePrice.split("-")[1]);
-
+        
+      
          var itemPrice= parseInt(sizePrice.split("-")[1]);
          var quantity = parseInt($("#qt-" + this.id).val());
          $("#qt-" + this.id).val('');
          
-         var rs =  $("input[name='topping']:checked").each(function () {
+          $("input[name='topping']:checked").each(function () {
             itemPrice +=parseInt($(this).val().split("-")[1]);
+            $("input[name='topping']:checked").prop("checked",false);
          });
-         console.log(quantity)
          
-          
-          
-          var storePizza = store.findPizza(this.id);
+         
+         var storePizza = store.findPizza(this.id);
           
          //saleItem
          saleItem = new SaleItem(storePizza,quantity,itemPrice);
@@ -188,16 +189,15 @@
          
          cart.addCart(saleItem);
          // show pizza to cart
-         
-        var rs = showItemList(cart);
-        console.log(rs+ "  rs")
-         $("#result").text("Total Balance: "+"$"+rs +".00");
-           //$("#toatlPrice").text("Total Price: "+totalPrice);
+         var finalPrice = showItemList(cart,pizzaSize);
+        
+         $("#result").text("Total Balance: "+"$"+ finalPrice +".00");
+           
           $("#cart").show();
       });
       $(".pizzList").on("click", "a", function() {
          $("#custom").show();
-       
+         
       });
    
    };
