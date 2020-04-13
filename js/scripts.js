@@ -1,10 +1,5 @@
    // busniess logic
-   function Topping(toppingName , toppingPrice){
-      this.toppingName = toppingName;
-      this.toppingPrice = toppingPrice;
-   }
-   var topping1 = new Topping()
-
+   
    function PizzaSize(size, sizePrice){
       this.size = size;
       this.sizePrice = sizePrice;
@@ -15,15 +10,7 @@
       this.name = name;
       this.description = description;
       this.imgSrc = imgSrc;
-      this.toppingList = [];
       this.sizeList = [];
-   }
-
-
-
-
-   Pizza.prototype.addTopping = function(topping){
-   this.toppingList.push(topping);
    }
 
    Pizza.prototype.addSize = function(pizzaSize1){
@@ -168,8 +155,6 @@
          $("#"+this.id+":checked").prop("checked",false);
          var pizzaSize = sizePrice.split("-")[0];
         
-        
-      
          var itemPrice= parseInt(sizePrice.split("-")[1]);
          var quantity = parseInt($("#qt-" + this.id).val());
          $("#qt-" + this.id).val('');
@@ -185,16 +170,16 @@
          //saleItem
          saleItem = new SaleItem(storePizza,quantity,itemPrice);
          console.log("saleItem " +saleItem.totalPrice)
-         //cart
          
+         //cart
          cart.addCart(saleItem);
          // show pizza to cart
          var finalPrice = showItemList(cart,pizzaSize);
         
          $("#result").text("Total Balance: "+"$"+ finalPrice +".00");
-           
-          $("#cart").show();
+         $("#cart").show();
       });
+     
       $(".pizzList").on("click", "a", function() {
          $("#custom").show();
          
@@ -207,14 +192,12 @@
    $(document).ready(function(){
       attachPizzaSizeListeners();
        store = new Store();
-      store.init();
+       store.init();
       
-      displayPizzaInStore(store);
+       displayPizzaInStore(store);
       
        cart = new Cart();
-       
-
-      $("#inputForm").submit(function(event){
+       $("#inputForm").submit(function(event){
          event.preventDefault();
       
       });
