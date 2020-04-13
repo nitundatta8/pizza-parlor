@@ -53,4 +53,4 @@ jQuery
 
 This software is licensed under the MIT license.
 
-Copyright (c) 2020 ** Nitun Datta **
+Copyright (c) 2020  Nitun Datta 
