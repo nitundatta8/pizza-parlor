@@ -14,7 +14,7 @@
 * Navigate to index.html file.
 * Right click and open in the browser of your choice.
 
-* Alternatively, open the webpage at https://github.com/nitundatta8/pizza-parlor
+* Alternatively, open the webpage at https://nitundatta8.github.io/pizza-parlor/
 
 
 ## specs
